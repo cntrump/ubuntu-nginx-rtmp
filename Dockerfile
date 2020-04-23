@@ -2,7 +2,7 @@ FROM cntrump/ubuntu-ffmpeg:latest
 
 ARG NGINX_VERSION=1.18.0
 
-ARG DEP_PKGS="libpcre3-dev zlib1g-dev"
+ARG DEP_PKGS="libpcre3-dev"
 
 RUN apt-get update && apt-get install ${DEP_PKGS} -y && apt-get clean && rm -rf /var/lib/apt/lists/*
 
