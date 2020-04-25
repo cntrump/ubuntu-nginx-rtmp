@@ -1,4 +1,4 @@
-FROM cntrump/ubuntu-toolchains:latest
+FROM cntrump/ubuntu-ffmpeg:4.2.2
 
 ARG NGINX_VERSION=1.18.0
 
@@ -22,7 +22,7 @@ RUN git clone -b v1.2.7 --depth=1 https://github.com/winshining/nginx-http-flv-m
                    --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-mail --with-mail_ssl_module \
                    --with-stream --with-stream_realip_module --with-stream_ssl_module --with-stream_ssl_preread_module \
                    --with-cc-opt='-Os -fomit-frame-pointer' --with-ld-opt=-Wl,--as-needed \
-                   --add-module=../nginx-http-flv-module \
+                   --add-dynamic-module=../nginx-http-flv-module \
     && make && make install && cd .. && rm -rf ./nginx-http-flv-module && rm -rf ./nginx-${NGINX_VERSION}
 
 RUN groupadd --force --system --gid 101 nginx && useradd --system -g nginx --no-create-home --home /nonexistent --shell /bin/false --non-unique --uid 101 nginx
