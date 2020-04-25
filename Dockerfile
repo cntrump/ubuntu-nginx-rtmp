@@ -1,4 +1,4 @@
-FROM cntrump/ubuntu-ffmpeg:latest
+FROM cntrump/ubuntu-toolchains:latest
 
 ARG NGINX_VERSION=1.18.0
 
@@ -32,7 +32,6 @@ EXPOSE 80
 EXPOSE 443
 
 COPY nginx.conf /etc/nginx/nginx.conf
-
 RUN mkdir -p /var/cache/nginx && mkdir -p /opt/data && mkdir /www
 ADD static /www/static
 
