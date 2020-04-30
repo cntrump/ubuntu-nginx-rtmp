@@ -8,6 +8,11 @@ FROM cntrump/ubuntu-toolchains:20.04 AS builder
 
 COPY --from=base / /
 
+ENV CC=/usr/bin/clang-10
+ENV CPP=/usr/bin/clang-cpp-10
+ENV CXX=/usr/bin/clang++-10
+ENV LD=/usr/bin/ld.lld-10
+
 ARG NGINX_VERSION=1.18.0
 
 RUN git clone -b v1.2.7 --depth=1 https://github.com/winshining/nginx-http-flv-module.git \
