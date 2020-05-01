@@ -50,15 +50,9 @@ COPY --from=builder /usr/local/lib/libssl.so* /usr/local/lib/
 COPY --from=builder /usr/local/lib/libcrypto.so* /usr/local/lib/
 
 COPY nginx.conf /etc/nginx/nginx.conf
-RUN mkdir -p /var/cache/nginx && mkdir -p /opt/data && mkdir /www
-ADD static /www/static
+RUN mkdir -p /var/cache/nginx && mkdir /opt/www
+ADD static /opt/www/static
 
-RUN /usr/sbin/nginx -t && /usr/sbin/nginx -V
+RUN ffmpeg -version && nginx -t && nginx -V
 
-ENV LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
-ENV PATH=/usr/local/bin:$PATH
-
-RUN sh -c "echo -e \"/usr/local/lib\n/usr/local/lib/x86_64-linux-gnu\" > /etc/ld.so.conf.d/local.so.conf" \
-    && ldconfig
-
-CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]
